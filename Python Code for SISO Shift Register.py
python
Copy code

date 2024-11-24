@@ -1,0 +1,37 @@
+class SISOShiftRegister:
+    def __init__(self, size):
+        """
+        Initialize the shift register.
+        :param size: Number of bits in the shift register
+        """
+        self.size = size
+        self.register = [0] * size  # Initialize the register with zeros
+
+    def shift(self, input_bit):
+        """
+        Perform a shift operation with a new input bit.
+        :param input_bit: Bit to shift into the register (0 or 1)
+        :return: The output bit shifted out of the register
+        """
+        output_bit = self.register[-1]  # The last bit will be shifted out
+        self.register = [input_bit] + self.register[:-1]  # Shift operation
+        return output_bit
+
+    def current_state(self):
+        """
+        Get the current state of the register.
+        :return: The current register as a list
+        """
+        return self.register
+
+
+# Example Usage
+print("Serial-In Serial-Out Shift Register")
+register_size = 4  # 4-bit shift register
+shift_register = SISOShiftRegister(register_size)
+
+inputs = [1, 0, 1, 1, 0]  # Input bits to shift into the register
+print("Input\tOutput\tRegister State")
+for bit in inputs:
+    output = shift_register.shift(bit)
+    print(f"{bit}\t{output}\t{shift_register.current_state()}")
